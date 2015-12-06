@@ -2,6 +2,10 @@
   "name": "gifyakker",
   "description": "Image search anagrams",
   "version": "1.0.0",
+  "engines": {
+    "node": "0.12.5",
+    "npm": "2.12.0"
+  },
   "repository": {
     "type": "git",
     "url": ""
