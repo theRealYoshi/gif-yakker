@@ -1,21 +1,20 @@
 // Babel ES6/JSX Compiler
 require('babel-core/register');
 
-
-var path = require('path');
 var express = require('express');
+var path = require('path');
 var logger = require('morgan');
 var async = require('async');
 var bodyParser = require('body-parser');
 
 
+var swig  = require('swig');
 var React = require('react');
 var ReactDOM = require('react-dom/server');
 var Router = require('react-router');
-var swig  = require('swig');
 var xml2js = require('xml2js');
-var _ = require('underscore');
 var mongoose = require('mongoose');
+var _ = require('underscore');
 var request = require('request');
 
 var config = require('./config');
