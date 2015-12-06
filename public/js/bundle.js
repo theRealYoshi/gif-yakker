@@ -1030,62 +1030,25 @@ var Home = (function (_React$Component) {
   }, {
     key: 'render',
     value: function render() {
-      var _this2 = this;
-
-      var characterNodes = this.state.characters.map(function (character, index) {
-        return _react2.default.createElement(
-          'div',
-          { key: character.characterId, className: index === 0 ? 'col-xs-6 col-sm-6 col-md-5 col-md-offset-1' : 'col-xs-6 col-sm-6 col-md-5' },
-          _react2.default.createElement(
-            'div',
-            { className: 'thumbnail fadeInUp animated' },
-            _react2.default.createElement('img', { onClick: _this2.handleClick.bind(_this2, character), src: 'http://image.eveonline.com/Character/' + character.characterId + '_512.jpg' }),
-            _react2.default.createElement(
-              'div',
-              { className: 'caption text-center' },
-              _react2.default.createElement(
-                'ul',
-                { className: 'list-inline' },
-                _react2.default.createElement(
-                  'li',
-                  null,
-                  _react2.default.createElement(
-                    'strong',
-                    null,
-                    'Race:'
-                  ),
-                  ' ',
-                  character.race
-                ),
-                _react2.default.createElement(
-                  'li',
-                  null,
-                  _react2.default.createElement(
-                    'strong',
-                    null,
-                    'Bloodline:'
-                  ),
-                  ' ',
-                  character.bloodline
-                )
-              ),
-              _react2.default.createElement(
-                'h4',
-                null,
-                _react2.default.createElement(
-                  _reactRouter.Link,
-                  { to: '/characters/' + character.characterId },
-                  _react2.default.createElement(
-                    'strong',
-                    null,
-                    character.name
-                  )
-                )
-              )
-            )
-          )
-        );
-      });
+      // var characterNodes = this.state.characters.map((character, index) => {
+      //   return (
+      //     <div key={character.characterId} className={index === 0 ? 'col-xs-6 col-sm-6 col-md-5 col-md-offset-1' : 'col-xs-6 col-sm-6 col-md-5'}>
+      //       <div className='thumbnail fadeInUp animated'>
+      //         <img onClick={this.handleClick.bind(this, character)} src={'http://image.eveonline.com/Character/' + character.characterId + '_512.jpg'}/>
+      //         <div className='caption text-center'>
+      //           <ul className='list-inline'>
+      //             <li><strong>Race:</strong> {character.race}</li>
+      //             <li><strong>Bloodline:</strong> {character.bloodline}</li>
+      //           </ul>
+      //           <h4>
+      //             <Link to={'/characters/' + character.characterId}><strong>{character.name}</strong></Link>
+      //           </h4>
+      //         </div>
+      //       </div>
+      //     </div>
+      //   );
+      // });
+      //      {characterNodes} add this in the div for rows
 
       return _react2.default.createElement(
         'div',
@@ -1095,11 +1058,7 @@ var Home = (function (_React$Component) {
           { className: 'text-center' },
           'Click on the portrait. Select your favorite.'
         ),
-        _react2.default.createElement(
-          'div',
-          { className: 'row' },
-          characterNodes
-        )
+        _react2.default.createElement('div', { className: 'row' })
       );
     }
   }]);
@@ -1264,7 +1223,16 @@ var Navbar = (function (_React$Component) {
               _react2.default.createElement(
                 _reactRouter.Link,
                 { to: '/add' },
-                'Add'
+                'Github'
+              )
+            ),
+            _react2.default.createElement(
+              'li',
+              null,
+              _react2.default.createElement(
+                _reactRouter.Link,
+                { to: '/add' },
+                'Linkedin'
               )
             )
           )
