@@ -239,33 +239,49 @@ var NavbarActions = (function () {
   function NavbarActions() {
     _classCallCheck(this, NavbarActions);
 
-    this.generateActions('updateOnlineUsers', 'updateAjaxAnimation', 'updateSearchQuery', 'getCharacterCountSuccess', 'getCharacterCountFail', 'findCharacterSuccess', 'findCharacterFail');
+    this.generateActions('updateSearchQuery', 'updateAjaxAnimation', 'getGiphySuccess', 'getGiphyFail', 'getCharacterCountSuccess', 'getCharacterCountFail', 'findCharacterSuccess', 'findCharacterFail');
   }
+  //find images based off Giphy or Redis
 
   _createClass(NavbarActions, [{
+    key: 'findGif',
+    value: function findGif(payload) {
+      var _this = this;
+
+      $.ajax({
+        url: '/api/gifs/search', // change this
+        data: { email: payload.searchQuery }
+      }).done(function (data) {
+        (0, _underscore.assign)(payload, data);
+        _this.actions.getGiphySuccess(payload);
+      }).fail(function () {
+        _this.actions.getGiphyFail(payload);
+      });
+    }
+  }, {
     key: 'findCharacter',
     value: function findCharacter(payload) {
-      var _this = this;
+      var _this2 = this;
 
       $.ajax({
         url: '/api/characters/search',
         data: { name: payload.searchQuery }
       }).done(function (data) {
         (0, _underscore.assign)(payload, data);
-        _this.actions.findCharacterSuccess(payload);
+        _this2.actions.findCharacterSuccess(payload);
       }).fail(function () {
-        _this.actions.findCharacterFail(payload);
+        _this2.actions.findCharacterFail(payload);
       });
     }
   }, {
     key: 'getCharacterCount',
     value: function getCharacterCount() {
-      var _this2 = this;
+      var _this3 = this;
 
       $.ajax({ url: '/api/characters/count' }).done(function (data) {
-        _this2.actions.getCharacterCountSuccess(data);
+        _this3.actions.getCharacterCountSuccess(data);
       }).fail(function (jqXhr) {
-        _this2.actions.getCharacterCountFail(jqXhr);
+        _this3.actions.getCharacterCountFail(jqXhr);
       });
     }
   }]);
@@ -1171,7 +1187,7 @@ var Navbar = (function (_React$Component) {
       var searchQuery = this.state.searchQuery.trim();
 
       if (searchQuery) {
-        _NavbarActions2.default.findCharacter({
+        _NavbarActions2.default.findGif({
           searchQuery: searchQuery,
           searchForm: this.refs.searchForm,
           history: this.props.history

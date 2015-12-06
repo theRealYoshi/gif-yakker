@@ -39,14 +39,14 @@ class Navbar extends React.Component {
     let searchQuery = this.state.searchQuery.trim();
 
     if (searchQuery) {
-      NavbarActions.findCharacter({
+      NavbarActions.findGif({
         searchQuery: searchQuery,
         searchForm: this.refs.searchForm,
         history: this.props.history
       });
     }
   }
-  
+
   render() {
     return (
       <nav className='navbar navbar-default navbar-static-top'>

@@ -38,6 +38,18 @@ app.use(express.static(path.join(__dirname, 'public')));
  * GET /api/characters
  * Returns 2 random characters of the same gender that have not been voted yet.
  */
+app.get('/api/gifs', function(req, res, next) {
+  var choices = ['Female', 'Male'];
+  var randomGender = _.sample(choices);
+
+  console.log("Server here");
+  console.log(req);
+});
+
+/**
+ * GET /api/characters
+ * Returns 2 random characters of the same gender that have not been voted yet.
+ */
 app.get('/api/characters', function(req, res, next) {
   var choices = ['Female', 'Male'];
   var randomGender = _.sample(choices);
@@ -222,6 +234,18 @@ app.get('/api/characters/count', function(req, res, next) {
 });
 
 /**
+ * GET /api/gifs/search
+ * Looks up a character by name. (case-insensitive)
+ */
+app.get('/api/gifs/search', function(req, res, next) {
+  var gifName = new RegExp(req.query.email, 'i');
+  //find in redis cache first
+  // if not in redis cache then make request to giphy api
+  // save results in redis and return callback
+  console.log(gifName);
+});
+
+/**
  * GET /api/characters/search
  * Looks up a character by name. (case-insensitive)
  */
@@ -243,48 +267,8 @@ app.get('/api/characters/search', function(req, res, next) {
  * GET /api/characters/top
  * Return 100 highest ranked characters. Filter by gender, race and bloodline.
  */
-app.get('/api/characters/top', function(req, res, next) {
-  var params = req.query;
-  var conditions = {};
 
-  _.each(params, function(value, key) {
-    conditions[key] = new RegExp('^' + value + '$', 'i');
-  });
-
-  Character
-    .find(conditions)
-    .sort('-wins') // Sort in descending order (highest wins on top)
-    .limit(100)
-    .exec(function(err, characters) {
-      if (err) return next(err);
-
-      // Sort by winning percentage
-      characters.sort(function(a, b) {
-        if (a.wins / (a.wins + a.losses) < b.wins / (b.wins + b.losses)) { return 1; }
-        if (a.wins / (a.wins + a.losses) > b.wins / (b.wins + b.losses)) { return -1; }
-        return 0;
-      });
-
-      res.send(characters);
-    });
-});
-
-/**
- * GET /api/characters/shame
- * Returns 100 lowest ranked characters.
- */
-app.get('/api/characters/shame', function(req, res, next) {
-  Character
-    .find()
-    .sort('-losses')
-    .limit(100)
-    .exec(function(err, characters) {
-      if (err) return next(err);
-      res.send(characters);
-    });
-});
-
-/**
+ /**
  * POST /api/report
  * Reports a character. Character is removed after 4 reports.
  */
