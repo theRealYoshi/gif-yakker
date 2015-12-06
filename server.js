@@ -1,25 +1,26 @@
 // Babel ES6/JSX Compiler
 require('babel-core/register');
 
-var async = require('async');
-var request = require('request');
-var xml2js = require('xml2js');
 
-var swig  = require('swig');
+var path = require('path');
+var express = require('express');
+var logger = require('morgan');
+var async = require('async');
+var bodyParser = require('body-parser');
+
+
 var React = require('react');
 var ReactDOM = require('react-dom/server');
 var Router = require('react-router');
-var routes = require('./app/routes');
-
-var express = require('express');
-var path = require('path');
-var logger = require('morgan');
-var bodyParser = require('body-parser');
-
+var swig  = require('swig');
+var xml2js = require('xml2js');
+var _ = require('underscore');
 var mongoose = require('mongoose');
-var Character = require('./models/character');
+var request = require('request');
 
 var config = require('./config');
+var routes = require('./app/routes');
+var Character = require('./models/character');
 
 mongoose.connect(config.database);
 mongoose.connection.on('error', function() {
